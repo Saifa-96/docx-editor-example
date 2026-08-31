@@ -1,0 +1,28 @@
+{
+  "name": "docx-editor-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/embed-docx.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/embed-docx.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "export:sandbox": "node scripts/export-codesandbox.mjs"
+  },
+  "dependencies": {
+    "@docx-editor.dev/core": "^2.13.0",
+    "@docx-editor.dev/react": "^2.13.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "lz-string": "^1.5.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.0"
+  }
+}
