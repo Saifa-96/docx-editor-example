@@ -1,15 +1,42 @@
 import { DocxEditor } from "@docx-editor.dev/react";
 import "@docx-editor.dev/core/styles/editor.css";
+import { useEffect, useState } from "react";
 
-import { DOCX_BASE64 } from "./docx";
-
-const bytes = Uint8Array.from(atob(DOCX_BASE64), (c) => c.charCodeAt(0));
+import docxUrl from "../layout-C-student.docx?url";
 
 /**
- * One page, no login: the official docx-editor.dev host rendering the
- * layout-C-student document (the floating seal-line table repro).
+ * One page, no login: the official docx-editor.dev host rendering
+ * layout-C-student.docx (the floating seal-line table repro), fetched
+ * straight from the repository file.
  */
 export default function App() {
+  const [bytes, setBytes] = useState<Uint8Array | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(docxUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error(`failed to load the document (${response.status})`);
+        return response.arrayBuffer();
+      })
+      .then((buffer) => {
+        if (!cancelled) setBytes(new Uint8Array(buffer));
+      })
+      .catch((cause) => {
+        if (!cancelled) setError(String(cause instanceof Error ? cause.message : cause));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (error) {
+    return <pre style={{ padding: 16 }}>{error}</pre>;
+  }
+  if (!bytes) {
+    return <pre style={{ padding: 16 }}>loading document…</pre>;
+  }
   return (
     <div style={{ height: "100dvh" }}>
       <DocxEditor document={bytes} />

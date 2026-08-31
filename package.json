@@ -4,12 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/embed-docx.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/embed-docx.mjs",
     "build": "vite build",
-    "preview": "vite preview",
-    "export:sandbox": "node scripts/export-codesandbox.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@docx-editor.dev/core": "^2.13.0",
@@ -21,7 +18,6 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^5.0.0",
-    "lz-string": "^1.5.0",
     "typescript": "^5.9.0",
     "vite": "^7.1.0"
   }
